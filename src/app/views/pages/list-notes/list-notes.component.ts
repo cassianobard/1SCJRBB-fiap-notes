@@ -21,7 +21,7 @@ export class ListNotesComponent implements OnInit {
         // this.getApiNotes();
         this.notes.push(note);
       },
-      error: () => {}
+      error: () => {},
     });
   }
 
@@ -30,17 +30,15 @@ export class ListNotesComponent implements OnInit {
     this.getApiNotes();
   }
 
-  getApiNotes(){
+  getApiNotes() {
     this.noteService.getNotes().subscribe({
-      next: (apiNotes) => this.notes = apiNotes,
+      next: (apiNotes) => (this.notes = apiNotes),
       error: (error) => console.error(error),
       // complete: () => alert("Deu tudo certo")
     });
   }
 
-  removeNote(noteId: number){
-    this.noteService.removeNote(noteId).subscribe(
-      () => this.notes = this.notes.filter(note => note.id !== noteId)
-    );
+  removeNote(noteId: number) {
+    this.noteService.removeNote(noteId).subscribe(() => (this.notes = this.notes.filter((note) => note.id !== noteId)));
   }
 }

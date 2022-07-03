@@ -4,21 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   id?: number;
   private sub: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     // this.sub = this.route.params.subscribe(
     //   params => {
     //     this.id = params['id']
     //     alert(this.id);
-    //   }    
+    //   }
     // )
   }
-
 }

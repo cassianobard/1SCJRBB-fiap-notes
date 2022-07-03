@@ -13,10 +13,7 @@ export class FormNoteComponent implements OnInit {
 
   checkoutForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private noteService: NoteService
-  ) {
+  constructor(private formBuilder: FormBuilder, private noteService: NoteService) {
     this.checkoutForm = this.formBuilder.group({
       textNote: ['', [Validators.required, Validators.minLength(5)]],
     });
@@ -34,7 +31,7 @@ export class FormNoteComponent implements OnInit {
           this.noteService.notifyNewNoteAdded(note);
         },
         //error é chamado no caso de excessões
-        error: (error) => alert("Algo errado na inserção! " + error)
+        error: (error) => alert('Algo errado na inserção! ' + error),
       });
     }
   }

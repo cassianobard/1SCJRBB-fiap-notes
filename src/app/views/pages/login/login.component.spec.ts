@@ -8,9 +8,9 @@ import { LoginComponent } from './login.component';
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
-  }
-]
+    component: HomeComponent,
+  },
+];
 
 fdescribe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,10 +23,9 @@ fdescribe('LoginComponent', () => {
     //aqui colocamos tudo que o componente vai utilizar
     //outros componentes, services, módulos, etc...
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [RouterTestingModule.withRoutes(routes)]
-    })
-    .compileComponents();
+      declarations: [LoginComponent],
+      imports: [RouterTestingModule.withRoutes(routes)],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -46,7 +45,6 @@ fdescribe('LoginComponent', () => {
   });
 
   it('should navigate to home', () => {
-
     //preparação
     spyOn(router, 'navigate');
     const button: HTMLButtonElement = fixture.nativeElement.querySelector('#btnLogin');
@@ -55,9 +53,6 @@ fdescribe('LoginComponent', () => {
     button.click();
 
     //verificação
-    expect(router.navigate).toHaveBeenCalledWith(["home"]);
-
+    expect(router.navigate).toHaveBeenCalledWith(['home']);
   });
-  
-
 });
