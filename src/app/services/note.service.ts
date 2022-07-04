@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Note } from './@types/note';
+import { Note, NewNote } from './@types/note';
 
 @Injectable({
   providedIn: 'root',
@@ -12,39 +12,19 @@ export class NoteService {
   private newNoteSource = new Subject<Note>();
   newNoteProvider = this.newNoteSource.asObservable();
 
+  private editNoteSource = new Subject<Note>();
+  editNoteProvider = this.editNoteSource.asObservable();
+
   constructor(private http: HttpClient) {
     this.apiUrl = 'https://fiap-notes-api.herokuapp.com';
   }
 
-  private notes = [
-    {
-      id: 1,
-      date: new Date(),
-      text: 'Um texto qualquer',
-      urgent: false,
-    },
-    {
-      id: 2,
-      date: new Date(),
-      text: 'Um texto qualquer 2',
-      urgent: true,
-    },
-    {
-      id: 3,
-      date: new Date(),
-      text: 'Um texto qualquer 3',
-    },
-    {
-      id: 4,
-      date: new Date(),
-      text: 'Um texto qualquer 4',
-      urgent: true,
-    },
-  ];
-
   notifyNewNoteAdded(note: Note) {
     this.newNoteSource.next(note);
-    // this.newNoteSource.error("algum exception");
+  }
+
+  notifyEditNote(note: Note) {
+    this.editNoteSource.next(note);
   }
 
   getNotes() {
@@ -55,9 +35,11 @@ export class NoteService {
     return this.http.delete(`${this.apiUrl}/notes/${noteId}`);
   }
 
-  postNotes(textNote: string) {
-    return this.http.post<Note>(`${this.apiUrl}/notes`, {
-      text: textNote,
-    });
+  postNotes(newNote: NewNote) {
+    return this.http.post<Note>(`${this.apiUrl}/notes`, newNote);
+  }
+
+  editNote(note: Note) {
+    return this.http.put<Note>(`${this.apiUrl}/notes/${note.id}`, { text: note.text });
   }
 }

@@ -14,18 +14,13 @@ export class ListNotesComponent implements OnInit {
 
   subscription: Subscription;
 
-  //injetando a dependência do service
   constructor(private noteService: NoteService) {
     this.subscription = this.noteService.newNoteProvider.subscribe({
-      next: (note: Note) => {
-        // this.getApiNotes();
-        this.notes.push(note);
-      },
+      next: (note: Note) => this.notes.push(note),
       error: () => {},
     });
   }
 
-  //método do cliclo de vida do componente
   ngOnInit(): void {
     this.getApiNotes();
   }
@@ -34,11 +29,14 @@ export class ListNotesComponent implements OnInit {
     this.noteService.getNotes().subscribe({
       next: (apiNotes) => (this.notes = apiNotes),
       error: (error) => console.error(error),
-      // complete: () => alert("Deu tudo certo")
     });
   }
 
   removeNote(noteId: number) {
     this.noteService.removeNote(noteId).subscribe(() => (this.notes = this.notes.filter((note) => note.id !== noteId)));
+  }
+
+  editNote(note: Note) {
+    this.noteService.notifyEditNote(note);
   }
 }

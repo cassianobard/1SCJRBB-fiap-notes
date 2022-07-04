@@ -4,3 +4,8 @@ export interface Note {
   date: Date;
   urgent?: boolean;
 }
+
+export interface NewNote {
+  text: string;
+  urgent: boolean;
+}
